@@ -1,0 +1,307 @@
+%##############################################%#
+%               Usepackages                    %#
+%##############################################%#
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{charter}
+\usepackage{adjustbox}
+\usepackage{framed} % Bruges til quotebox
+\usepackage[strict]{changepage} % Bruges til quotebox
+\usepackage{xcolor}
+\usepackage[headheight=0pt,headsep=0pt]{geometry}
+\usepackage{lipsum} 
+\usepackage[danish]{babel}
+\usepackage{amsmath}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{dirtree}
+
+%##############################################%#
+%               hyperref setup                 %#
+%##############################################%#
+
+% Settings for alle links i dokumentet
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    citecolor=blue,
+    urlcolor=cyan,
+    pdftitle={Praktikrapport - Mads Elkjær} % Sætter dokumentets titel når den åbnes
+    }
+\urlstyle{same}
+
+%##############################################%#
+%               Biblatex setup                 %#
+%##############################################%#
+
+% Biblatex setup 
+\usepackage[backend=biber,style=apa,sorting=ynt,maxcitenames=1]{biblatex}
+\addbibresource{Kildehenvisning/Projekt-Kildehenvisning.bib}
+\usepackage{.Settings/bibtexhypers}
+\DefineBibliographyStrings{danish}{
+  retrieved = {kilde læst d.},
+  from      = {fra},
+}
+%##############################################%#
+%               \ref setup                     %#
+%##############################################%#
+
+% Ændrer navne som indholdsfortegnelse, figurtekster, tabelnavne etc. 
+\renewcommand*\contentsname{Indholdsfortegnelse}
+\renewcommand{\figurename}{Figur}
+\renewcommand{\tablename}{Tabel}
+\renewcommand\lstlistingname{Code-snippet}
+\renewcommand\lstlistlistingname{Code-snippet2}
+
+%##############################################%#
+%            Cleverref setup                   %#
+%##############################################%#
+
+\crefname{listing}{code-snippet}{code-snippets}  
+\Crefname{listing}{Code-snippet}{Code-snippets}
+\crefname{figure}{figur}{figurene}  
+\Crefname{figure}{Figur}{Figurene}
+\crefname{table}{tabel}{tabellerne}  
+\Crefname{table}{Tabel}{Tabellerne}
+\crefname{equation}{ligning}{ligningerne}  
+\Crefname{equation}{Ligning}{Ligningerne}
+\crefname{equation}{ligning}{ligningerne}  
+\Crefname{equation}{Ligning}{Ligningerne}
+\crefname{section}{sektion}{sektionerne}
+\Crefname{section}{Sektion}{Sektionerne}
+\crefname{subsection}{afsnit}{afsnittene}
+\Crefname{subsection}{Afsnit}{Afsnittene}
+\crefname{subsubsection}{underafsnit}{underafsnittene}
+\Crefname{subsubsection}{Underafsnit}{Underafsnittene}
+\newcommand{\creflastconjunction}{ og }
+\newcommand{\creflastgroupconjunction}{ samt }
+\newcommand{\crefpairconjunction }{ og }
+\newcommand{\crefrangeconjunction}{ til }
+
+%##############################################%#
+%          top/bund margen setup               %#
+%##############################################%#
+
+% Top/bund margen kontrol. 
+\addtolength{\topmargin}{-30pt} % Topmargin - jo længere fra 0, jo mindre margen. -30 er god! 
+\addtolength{\textheight}{120pt} % Bundmargin
+
+%##############################################%#
+%              fancyhdr setup                  %#
+%##############################################%#
+\pagestyle{fancy}     
+\fancyhf{}
+\fancyfoot[C]{Side \thepage \hspace{2pt} af \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%##############################################%#
+%                  Infobox                     %#
+%##############################################%#
+
+% Info box
+% \begin{formal} text \end{formal}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{formalshade}{rgb}{0.95,0.95,1}
+\newenvironment{formal}{%
+  \def\FrameCommand{%
+    \hspace{1pt}%
+    {\color{darkblue}\vrule width 2pt}%
+    {\color{formalshade}\vrule width 4pt}%
+    \colorbox{formalshade}%
+  }%
+  \MakeFramed{\advance\hsize-\width\FrameRestore}%
+  \noindent\hspace{-4.55pt}% disable indenting first paragraph
+  \begin{adjustwidth}{}{7pt}%
+  \vspace{2pt}\vspace{2pt}%
+}
+{%
+  \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+%##############################################%#
+%            lstlisting setup                  %#
+%##############################################%#
+
+% Sætter code-snippet formatting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{cloudwhite}{rgb}{0.9412, 0.9608, 0.8471} 
+\definecolor{davysgrey}{rgb}{0.33, 0.33, 0.33}
+\definecolor{deepfuchsia}{rgb}{0.76, 0.33, 0.76}
+\definecolor{deepskyblue}{rgb}{0.0, 0.75, 1.0}
+\definecolor{ceruleanblue}{rgb}{0.16, 0.32, 0.75}
+\definecolor{celestialblue}{rgb}{0.29, 0.59, 0.82}
+\definecolor{anti-flashwhite}{rgb}{0.95, 0.95, 0.96}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{anti-flashwhite},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    identifierstyle=\color{ceruleanblue},
+    morecomment=[l]{//}, %use comment-line-style!
+    morecomment=[s]{/*}{*/}, %for multiline comments
+    basicstyle=\ttfamily\scriptsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    morekeywords={ abstract, event, new, struct,
+    as, explicit, null, switch,
+    base, extern, object, this,
+    bool, false, operator, throw,
+    break, finally, out, true,
+    byte, fixed, override, try,
+    case, float, params, typeof,
+    catch, for, private, uint,
+    char, foreach, protected, ulong,
+    checked, goto, public, unchecked,
+    class, if, readonly, unsafe,
+    const, implicit, ref, ushort,
+    continue, in, return, using,
+    decimal, int, sbyte, virtual,
+    default, interface, sealed, volatile,
+    delegate, internal, short, void,
+    do, is, sizeof, while,
+    double, lock, stackalloc,
+    else, long, static,
+    enum, namespace, string}
+}
+\lstset{style=mystyle}
+
+%############################################################################%#
+%############################################################################%#
+%###############              De forbudte trin.               ###############%#    
+%###############                 Nix pille!                   ###############%#
+%############################################################################%#
+%############################################################################%#
+
+%##############################################%#
+%             titlesec setup                   %#
+%##############################################%#
+
+\usepackage{titlesec} 
+\titleformat{\section}[hang]{
+    \usefont{T1}{qhv}{b}{n}\selectfont}
+    {} 
+    {0em}
+    {\hspace{-0.4pt}\Large \thesection\hspace{0.6em}
+}
+\titleformat{name=\section,numberless}[hang]{
+    \usefont{T1}{qhv}{b}{n}\selectfont}
+    {} 
+    {0em}
+    {\hspace{-0.4pt}\Large
+}
+\titleformat{\subsection}[hang]{
+    \usefont{T1}{qhv}{b}{n}\selectfont}
+    {} 
+    {0em}
+    {\hspace{-0.4pt}\large \thesubsection\hspace{0.4em}
+}
+\titleformat{name=\subsection,numberless}[hang]{
+    \usefont{T1}{qhv}{b}{n}\selectfont}
+    {} 
+    {0em}
+    {\hspace{-0.4pt}\large
+}
+\titleformat{\subsubsection}[hang]{
+    \usefont{T1}{qhv}{b}{n}\selectfont}
+    {} 
+    {0em}
+    {\hspace{-0.4pt}\normalsize \thesubsubsection\hspace{0.3em}
+}
+\titleformat{name=\subsubsection,numberless}[hang]{
+    \usefont{T1}{qhv}{b}{n}\selectfont} 
+    {} 
+    {0em}
+    {\hspace{-0.4pt}\normalsize
+}
+
+\usepackage{tocloft} % subfigure option only if using subfigure package
+\renewcommand{\cfttoctitlefont} % ToC title
+             {\usefont{T1}{qhv}{b}{n}\selectfont\huge}
+\renewcommand{\cftsecfont} % section titles
+             {\usefont{T1}{qhv}{b}{n}\selectfont}
+\renewcommand{\cftsecpagefont} % section page numbers
+             {\cftsecfont} 
+\renewcommand{\cftsubsecfont} % subsection titles
+             {\usefont{T1}{bch}{m}{n}\selectfont}
+\renewcommand{\cftsubsecpagefont} % subsection page numbers
+             {\cftsubsecfont} 
+\renewcommand{\cftsubsubsecfont} % subssubection titles
+             {\usefont{T1}{bch}{m}{n}\selectfont}
+\renewcommand{\cftsubsubsecpagefont} % subsubsection page numbers
+             {\cftsubsubsecfont}
+
+%##############################################%#
+%            microtype setup                   %#
+%##############################################%#
+% Sætter protusion params i højre margen for ex. superscripts og komma
+\SetProtrusion{encoding={*},family={bch},series={*},size={6,7,8}}
+              {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
+               6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
+               
+% Kerning options for almindelig tekst
+\SetExtraKerning[unit=space]
+    {encoding={*}, family={bch}, series={*}, size={footnotesize,small,normalsize}}
+    {\textendash={400,400}, % en-dash, add more space around it
+     "28={ ,150}, % left bracket, add space from right
+     "29={150, }, % right bracket, add space from left
+     \textquotedblleft={ ,150}, % left quotation mark, space from right
+     \textquotedblright={150, }} % right quotation mark, space from left
+
+% Kerning options for overskrifter
+\SetExtraKerning[unit=space]
+   {encoding={*}, family={qhv}, series={b}, size={large,Large, LARGE}}
+   {1={-200,-200}, 
+    \textendash={400,400}}
+% Tracking for smallcaps (i litteraturliste)
+\SetTracking{encoding={*}, shape=sc}{40}
+
+
+
+
+
+\newread\tmp
+%%% Counting Char %%%
+\newcommand{\quickcharcount}[1]{%
+  \immediate\write18{texcount -1 -sum -merge -char-only #1.tex > #1-chars.sum}%
+  \openin\tmp=#1-chars.sum%
+  \read\tmp to \thechar%
+  \closein\tmp%
+}
+%%% Counting Words %%%
+\newcommand{\quickwordcount}[1]{%
+  \immediate\write18{texcount -1 -sum -merge -count-all #1.tex > #1-words.sum}%
+  \openin\tmp=#1-words.sum%
+  \read\tmp to \theword%
+  \closein\tmp%
+}
+
+%%% Defining whats the main documents is for the counting %%%
+% \quickwordcount{main}
+% \quickcharcount{main}
+
+
+

@@ -1,0 +1,63 @@
+%##############################################%#
+%             Kildehenvisninger                %#
+%#%############################################%#
+
+
+https://arxiv.org/abs/1909.04422
+
+%##############################################%#
+%             Copypaste eksempler              %#
+%#%############################################%#
+
+
+% Bog (author,title,year/date)
+@book{exempelbog, % Kildenavn \autocite{exempelbog} printer (Goossens, M et al., 1993)
+    author    = "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+    title     = "The \LaTeX\ Companion",
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts",
+    keywords  = "latex"
+}
+
+% Web (skal have author/editor,title,year/date,url)
+@online{exempelweb,
+    author    = "Donald Knuth",
+    title     = "Knuth: Computers and Typesetting",
+    url       = "http://www-cs-faculty.stanford.edu/~uno/abcde.html",
+    year      = "2015",
+    urldate   = "2022-10-22",
+    keywords  = "latex,knuth"
+}
+
+% Artikel (skal have: author,title,journaltitle,year/date)
+@article{eksempelartikel,
+    author  = "George D. Greenwade",
+    title   = "The {C}omprehensive {T}ex {A}rchive {N}etwork ({CTAN})",
+    year    = "1993",
+    journal = "TUGBoat",
+    volume  = "14",
+    number  = "3",
+    pages   = "342--351",
+    keywords  = "latex"
+}
+
+% Datasheets(skal have author/editor/organization,title,year/date) - er lidt funky. Find evt en anden type der printer pænere?
+@manual{eksempeldatasheet,
+    publisher  = "TI Instruments",
+    title   = "BC517 Datasheet",
+    year    = "2013",
+    url     = "https://www.cypax.dk/pdf/BC517.pdf",
+    note    = "Er vedlagt som bilag", % Kan være tom med "" 
+    keywords  = "datasheet"
+}
+
+% Kapitel i bog (skal have author,title,booktitle,year/date)
+@inbook{exempelkapitel,
+   author = "Donald E. Knuth",
+   title = "Fundamental Algorithms",
+   publisher = "Addison-Wesley",
+   year = "1973",
+   chapter = "1.2",
+   keywords  = "knuth,programming"
+}

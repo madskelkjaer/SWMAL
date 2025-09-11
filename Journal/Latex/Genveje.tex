@@ -1,0 +1,124 @@
+##############################################%#
+               \section{Figurer}               %#
+%##############################################%#
+
+\subsection{Indsæt figur}
+
+% Husk: filsti/filnavn.jpg
+% Husk: Caption {Figurtext}
+% Husk: Label - så du kan referere til billedet senere. Det anbefales at bruge {fig:label}, {tab:label}, {lst:label} - så er det nemmere at få fat i den rigtige. Kaldes med \ref{fig:meemoaldec}
+% [here, top, bottom, page] - ! forsøger at tvinge latex til at placere her. Læs: https://www.overleaf.com/learn/latex/Inserting_Images#Positioning
+
+\begin{figure}[htb!]                % Start figur
+    \centering                      % Centrer
+    \includegraphics[width=0.8\textwidth]{Figurer/Intro/insertimg.png} % Sæt størrelse, vælg fil
+    \caption{Indsæt figur}          % Figurtekst
+    \label{Intro/fig:insertfig}     % Label til referencer - brug sektion før label!
+\end{figure}                        % Slut figur
+
+\subsubsection{Indsæt to figurer side-by-side}
+
+% To billeder ved siden af hinanden
+\begin{figure}
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{example-image-a} % Venstre figur
+        \caption{Venstre}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{example-image-b} % Højre figur
+        \caption{højre}
+    \end{minipage}
+\end{figure}
+
+%##############################################%#
+           \section{Code-snippets}             %#
+%##############################################%#
+
+% Indsæt kodesnippet fra fil: 
+\lstinputlisting[language=c, firstline=50, lastline=74, firstnumber=50, caption=Server: sendFile(),label={lst:serversendFile}]{Filer/ex7/file_server.cpp}
+
+% Indsæt kodesnippet direkte 
+\begin{lstlisting}[caption={INDSÆT TEKST},captionpos=b]
+--kode
+\end{lstlisting}
+
+%##############################################%#
+               \section{Lister}                %#
+%##############################################%#
+% Lister
+% Se https://www.overleaf.com/learn/latex/Lists
+% indsæt \itemsep0em efter begin hvis du ikke ønsker stor linjeafstand mellem punkterne
+
+% Liste i punktform 
+\begin{itemize}
+    \item Punkt
+\end{itemize}
+
+% Numereret liste
+\begin{enumerate}
+    \item Første ting her
+\end{enumerate}
+
+%##############################################%#
+               \section{Math}                  %#
+%##############################################%#
+
+\begin{flalign}
+f(u) & =\sum_{j=1}^{n} x_jf(u_j)&\\
+     & =\sum_{j=1}^{n} x_j \sum_{i=1}^{m} a_{ij}v_i&\\
+     & =\sum_{j=1}^{n} \sum_{i=1}^{m} a_{ij}x_jv_i
+\end{flalign}
+
+\begin{equation}
+\frac{df}{dt}=\lim_{h \to 0}\frac{f(t+h)-f(t)}{h}
+\label{math:test} 
+\end{equation}
+
+%##############################################%#
+            \section{Overskrifter}             %#
+%##############################################%#
+
+% Overskrifter (der optræder i indholdsfortegnelsen):
+\section{} % Nyt kapitel
+\subsection{} % Underkapitel
+\subsubsection{} % Under-underkapitel. 
+
+%##############################################%#
+              \section{Tabeller}               %#
+%##############################################%#
+
+% Tabeller - https://www.tablesgenerator.com/
+% Ikke spild tid på at lave dem i hånden.
+
+%##############################################%#
+            \section{Kildehenvisning}          %#
+%##############################################%#
+
+% Kildehenvisning (biblatex)
+% Se kildehenvisningsdokument for eksempler
+\autocite{kildenavn}
+
+% Print kildehenvisning
+\renewcommand*{\mkbibnamefamily}[1]{\textsc{#1}}
+
+\printbibliography[heading=bibintoc,title={Kildehenvisninger}] 
+
+%Filtrer kildehenvisning
+\printbibliography[heading=subbibintoc,type=article,title={Kun artikler}] %header=subbibintoc printer afsnittet i indholdsfortegnelsen
+
+\printbibliography[type=book,title={Kun bøger}]
+
+\printbibliography[keyword={datasheet},title={Datasheets}]
+\printbibliography[keyword={latex},title={\LaTeX-relaterede ting}]
+
+%##############################################%#
+              \section{Infobox}                %#
+%##############################################%#
+% Infobox:
+\begin{formal}
+\texttt{\textbf{SOCK\_DGRAM}: Supports datagrams (connectionless, unreliable messages of a fixed maximum length).}
+\end{formal}
+
