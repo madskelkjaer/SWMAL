@@ -1,0 +1,207 @@
+\section{L01 Intro opgaver}
+\subsection{Qa - The \(\theta\) parameters and the \(R^2\) score}
+\subsubsection{Extracting the \(\theta_0\) and \(\theta_1\) coeffictients}
+Extracting the \(\theta_0\) and \(\theta_1\) coefficients involves using the "coef_" and "intercept_" methods on the model, which is found in the documentation of the linear regression model:
+\begin{lstlisting}
+# Qa:
+print(model.coef_)
+print(model.intercept_)
+\end{lstlisting}
+\paragraph{This will output the following:
+[[4.91154459e-05]]
+[4.8530528]}
+
+\subsubsection{What is the \(R^2\) score?}
+In terms of perfectly predicting data, the \(R^2\)  tells us how well the data is fitted. Therefore, it is a measurement of fitness and goodness. The \(R^2\) score ranges from 0 to 1, but when the residual sum of squares is greater than the total sum of squares, the score can be less than zero, and theoretically speaking infinitely low. While a score of 1 is considered perfect, a score equal to or greater than 0.7 is generally accepted.
+
+\subsubsection{Extracting the score for the model}
+By using the formula given in the notebook, we can extract the \(R^2\) score for the model:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2_Billeder/r2_score_formula.png}
+    \caption{Formula for \(R^2\) given in notebook}
+    \label{fig:placeholder}
+\end{figure}
+Applying this in code, we get the following:
+\begin{lstlisting}
+score = model.score(X, y)
+print("R2 score for the model:", score)
+\end{lstlisting}
+The code outputs the following:
+\textbf{R2 score for the model: 0.734441435543703}
+
+\subsection{Qb - Using k-nearest neighbours}
+\subsubsection{Changing the model and estimating for Cyprus}
+We start off with preparing the data:
+\begin{lstlisting}
+X = np.c_[country_stats["GDP per capita"]]
+y = np.c_[country_stats["Life satisfaction"]]
+\end{lstlisting}
+X is our feature, and y is the target variable.
+
+Now, we visualize the data by plotting it:
+\begin{lstlisting}
+country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
+plt.show()
+\end{lstlisting}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2_Billeder/l01_qb_plot.png}
+    \caption{Country stats plot}
+    \label{fig:placeholder}
+\end{figure}
+We then change to the KNN model:
+\begin{lstlisting}
+# Using the KNeighborsRegressor instead of LinearRegression.
+knn = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3) # Setting k=3, so we look at the 3 closest neighbors to make predictions
+knn.fit(X, y)
+\end{lstlisting}
+We can now use the trained KNN model to predict hte life satisfaction for Cyprus:
+\begin{lstlisting}
+# Predict for Cyprus
+cyprus_gdp = [[22587]]
+cyprus_pred = knn.predict(cyprus_gdp)
+print("Predicted life satisfaction for Cyprus:", cyprus_pred)
+\end{lstlisting}
+This gives us the following output:
+\textbf{Predicted life satisfaction for Cyprus: [[5.76666667]]}
+
+\subsubsection{The score-method for KNN}
+The KNN (KNeighboursRegressor) calculates the score using the .score()-method. The formula of figure 1 is used in this method.
+
+\subsection{Qc - Tuning the parameter for KNN}
+To perform a sanity check of the KNN prediction, we use the following code:
+\begin{lstlisting}
+sample_data.plot(kind='scatter', x="GDP per capita", y='Life satisfaction', figsize=(5,3))
+plt.axis([0, 60000, 0, 10])
+
+# create an test matrix M, with the same dimensionality as X, and in the range [0;60000] 
+# and a step size of your choice
+m=np.linspace(0, 60000, 1000)
+M=np.empty([m.shape[0],1])
+M[:,0]=m
+
+# from this test M data, predict the y values via the lin.reg. and k-nearest models
+y_pred_lin = model.predict(M)
+y_pred_knn = knn.predict(M)   # ASSUMING the variable name 'knn' of your KNeighborsRegressor 
+
+# use plt.plot to plot x-y into the sample_data plot..
+plt.plot(m, y_pred_lin, "r")
+plt.plot(m, y_pred_knn, "b")
+
+# For k = 1
+knn = KNeighborsRegressor(n_neighbors=1)
+knn.fit(X, y)
+y_pred_knn_1 = knn.predict(M)
+plt.plot(m, y_pred_knn_1, "g")
+# R score:
+r2_score_knn_1 = knn.score(X, y)
+print(f"R^2 score for k=1: {r2_score_knn_1}")
+
+# For k = 2
+knn = KNeighborsRegressor(n_neighbors=2)
+knn.fit(X, y)
+y_pred_knn_2 = knn.predict(M)
+plt.plot(m, y_pred_knn_2, "c")
+# R score:
+r2_score_knn_2 = knn.score(X, y)
+print(f"R^2 score for k=2: {r2_score_knn_2}")
+
+# For k = 5
+knn = KNeighborsRegressor(n_neighbors=5)
+knn.fit(X, y)
+y_pred_knn_5 = knn.predict(M)
+plt.plot(m, y_pred_knn_5, "m")
+# R score:
+r2_score_knn_5 = knn.score(X, y)
+print(f"R^2 score for k=5: {r2_score_knn_5}")
+
+# For k = 10
+knn = KNeighborsRegressor(n_neighbors=10)
+knn.fit(X, y)
+y_pred_knn_10 = knn.predict(M)
+plt.plot(m, y_pred_knn_10, "y")
+# R score:
+r2_score_knn_10 = knn.score(X, y)
+print(f"R^2 score for k=10: {r2_score_knn_10}")
+
+# For k = 20
+knn = KNeighborsRegressor(n_neighbors=20)
+knn.fit(X, y)
+y_pred_knn_20 = knn.predict(M)
+plt.plot(m, y_pred_knn_20, "k")
+# R score:
+r2_score_knn_20 = knn.score(X, y)
+print(f"R^2 score for k=20: {r2_score_knn_20}")
+
+plt.show()
+\end{lstlisting}
+We then get the following output:
+\textbf{R2 score for k=1: 1.0
+R2 score for k=2: 0.9091881835016248
+R2 score for k=5: 0.8023975402676358
+R2 score for k=10: 0.7833080605150065
+R2 score for k=20: 0.5523762709199536}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2_Billeder/qc_kvalues.png}
+    \caption{KNN plot with varying K-values}
+    \label{fig:placeholder}
+\end{figure}
+We have compiled a table overviewing the colors and the k-value they represent:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{2_Billeder/qd_k-values_table.png}
+    \caption{K values and their line colors}
+    \label{fig:placeholder}
+\end{figure}
+
+As shown on the graph above, for k=1, we get an R score of 1, and while this is considered perfect in many cases, it means that the model may be overfitting and might perform poorly on new data.
+
+So, even though the R-score of 1 for k=1 looks promising, it is not the preferred estimator for the job. If we should test this model on new data, it will likely make poor predictions because it will simply copy the training set. A preferred model should balance fitting the training data and generalizing new data. A higher k-value will give us smoother predictions, even if the R-score is lower. 
+
+\subsection{Qd - Trying out a neural network}
+\begin{lstlisting}
+    from sklearn.neural_network import MLPRegressor
+import numpy as np
+import matplotlib.pyplot as plt
+
+mlp = MLPRegressor(
+    hidden_layer_sizes=(10,), 
+    solver='adam', 
+    activation='relu', 
+    tol=1E-5, 
+    max_iter=100000, 
+    verbose=False,
+    random_state=42
+)
+
+mlp.fit(X, y.ravel())
+
+y_pred_mlp_cyprus = mlp.predict([[22587]])
+print(f"Predicted life satisfaction for Cyprus (MLP): {y_pred_mlp_cyprus[0]:.4f}")
+
+r2_mlp = mlp.score(X, y)
+print(f"R^2 score for MLP: {r2_mlp:.4f}")
+
+m = np.linspace(0, 60000, 1000)
+M = m.reshape(-1, 1)
+
+y_pred_lin = model.predict(M)
+y_pred_knn = knn.predict(M)
+y_pred_mlp = mlp.predict(M)
+
+sample_data.plot(kind='scatter', x="GDP per capita", y='Life satisfaction', figsize=(8,5))
+plt.axis([0, 60000, 0, 10])
+plt.plot(m, y_pred_lin, "r-", label="Linear Regression")
+plt.plot(m, y_pred_knn, "b--", label="KNN (k=20)")
+plt.plot(m, y_pred_mlp, "k-.", label="MLP Regressor")
+plt.legend()
+plt.show()
+\end{lstlisting}
+\textbf{Predicted life satisfaction for Cyprus (MLP): 4.0767
+R^2 score for MLP: -3.6741}
+
+A negative R2 score as seen above indicates that the model performs worse than simply predicting the mean of the target variable for all inputs.
+In other words, the model's predictions are less accurate than a naive baseline.
