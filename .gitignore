@@ -1,7 +1,21 @@
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
+# macOS
+.DS_Store
+
 profile_default/
 ipython_config.py
 
 venv/
+.env/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+.vscode/
+.idea/
