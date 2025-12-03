@@ -23,6 +23,4 @@ __pycache__/
 # Project temp outputs
 Journal\Opgave4\CatData\_tmp_standardized
 Journal\Opgave4\CatData\**\_tmp*/
-Journal/Opgave4/CatData/_tmp_standardized/bengal/1b2a68f85a32410fb3fd776927a2f4ef.jpg
-Journal/Opgave4/CatData/_tmp_standardized/train/
-Journal/Opgave4/CatData/_tmp_standardized/val
+Journal\Opgave4\CatData\**\_tmp*/
